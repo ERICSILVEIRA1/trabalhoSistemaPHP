@@ -10,6 +10,7 @@
     <?php 
     
         require_once "usuarios.php";
+        require_once "verUsuarios.php";
         $usyarioioSes = $_SESSION["usuario"]?? null;
         //echo "Deu certo?";
 
@@ -18,7 +19,9 @@
         $usuario = $_POST["usuario"] ?? null;
         $senha = $_POST["senha"] ?? null;
 
-        // echo "$usuario -- $senha";
+       // echo "$nome -- $usuario -- $senha";
+           
+                    
 
         if(is_null($usuario) && is_null($senha)){
             echo "Fazer Login";
@@ -32,12 +35,13 @@
             <input type="text" name="usuariuo" id="">
         
             <label for="">Senha:</label>
-            <input type="text" name="senha" id="">
+            <input type="text" name="senha" id="">  
         
             <input type="submit" value="Login">
         
         </form>';
            
+
         }else{
 
             if(verUsuarios($nome, $usuario, $senha)){
@@ -51,8 +55,8 @@
                 echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
                 echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
             
-                echo "<a href='Loguin/calcphp.php'>Calculadora PHP</a>";
-                echo'<form action= "http://localhost/aula13/app.html" method="get" target="_blank">
+                echo "<a href='Loguin/App.php'>Jogo da Velha</a>";
+                echo'<form action= "http://localhost/trabalhoSistemaPHP/app.html" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
             </form>';
             }else{
@@ -76,8 +80,8 @@
             }
 
         }
-    
+        
     ?>
-    
 </body>
 </html>
+\end{code}
