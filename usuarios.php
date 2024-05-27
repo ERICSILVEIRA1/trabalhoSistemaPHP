@@ -1,9 +1,12 @@
 <?php 
 
     $usuarios = [
-        ["usu" => "lucca32", "nome" => "lucca", "senha" => "123"],
-        ["usu" => "turek", "nome" => "christian", "senha" => "321"],
-        ["usu" => "felipe48", "nome" => "felipe", "senha" => "A7d@"]
+        ["usu" => "admin", "nome" => "admin", "senha" => "1"],
+        ["usu" => "riverzone", "nome" => "eric", "senha" => "123"],
+        ["usu" => "ditrich", "nome" => "gabriel", "senha" => "321"],
+        ["usu" => "diga", "nome" => "diego", "senha" => "456"],
+        ["usu" => "jovi", "nome" => "joao", "senha" => "654"],
+       
     ];
 
     
