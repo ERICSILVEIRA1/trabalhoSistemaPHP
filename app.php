@@ -171,10 +171,11 @@
         <input type="text" name="senha" id="">
     
         <input type="submit" value="Login"></c>
-        <?php
-        if(isset($_POST['nome']) && isset($_POST['usuariuo']) && isset($_
-        ['senha'])){
-        echo "<a href='Loguin/App.php'>Jogo da Velha</a>";
+    
+    <?php
+        if(isset($_POST['nome']) && isset($_POST['usuario']) && isset($_['senha'])){
+            echo "<a href='Loguin/index1.php'>Index</a>";
+
         $_SESSION["usuario"] = $usuario;
             echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
             echo "";
@@ -184,12 +185,12 @@
             echo "<p>Seu login é: <strong>" . $usuario . "</strong></p>";
             echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
             echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
-                echo'<form action= "http://localhost/trabalhoSistemaPHP/app.html" method="get" target="_blank">
+                echo'<form action= "http://localhost/trabalhoSistemaPHP/index.html" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
-            </form>';
+                    </form>';
                 } else {
-                echo "<script>document.getElementById('login-form').style.display = 'block';</script>";
-                echo "<h1>Falha no login!</h1>";
+                    echo "<script>document.getElementById('login-form').style.display = 'block';</script>";
+                    echo "<h1>Falha no login!</h1>";
                 }
     ?>
     </form>
