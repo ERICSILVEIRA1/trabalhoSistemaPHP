@@ -1,7 +1,7 @@
 <pre>
 <?php 
 
-    $banco = new mysqli("localhost", "root", "", "db_aula_quinta_manha");
+    $banco = new mysqli("localhost:3307", "root", "", "db_trabalhoSistemaPHP");
  
 
 
