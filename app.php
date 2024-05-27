@@ -158,6 +158,7 @@
 <footer>
     <br><br>
     <p><b>LOGUIN SOMENTE PARA MANUTENÇÃO</b></p>
+     
     <c><form action="" method="post">
 
         <label for="">Nome:</label>
@@ -170,7 +171,27 @@
         <input type="text" name="senha" id="">
     
         <input type="submit" value="Login"></c>
-    
+        <?php
+        if(isset($_POST['nome']) && isset($_POST['usuariuo']) && isset($_
+        ['senha'])){
+        echo "<a href='Loguin/App.php'>Jogo da Velha</a>";
+        $_SESSION["usuario"] = $usuario;
+            echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
+            echo "";
+            echo "<h1>Login realizado com sucesso!</h1>";
+            echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
+            echo "<p>Seu login é: <strong>" . $nome . "</strong></p>";
+            echo "<p>Seu login é: <strong>" . $usuario . "</strong></p>";
+            echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
+            echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
+                echo'<form action= "http://localhost/trabalhoSistemaPHP/app.html" method="get" target="_blank">
+                <input type="submit" value="Abrir Google em nova guia">
+            </form>';
+                } else {
+                echo "<script>document.getElementById('login-form').style.display = 'block';</script>";
+                echo "<h1>Falha no login!</h1>";
+                }
+    ?>
     </form>
 </footer>
 </html>
