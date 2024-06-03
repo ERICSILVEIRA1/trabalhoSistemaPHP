@@ -81,5 +81,8 @@
         }
         
     ?>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h1><c>Bem vindo ao Jogo mais divertido de todos os tempos!</c></h1>
+    <h1><c>Faça seu loguin e começe já a jogatina!</c></h1>
 </body>
 </html>
