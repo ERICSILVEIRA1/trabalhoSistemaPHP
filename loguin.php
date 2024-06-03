@@ -9,8 +9,7 @@
     
     <?php 
     
-        require_once "usuarios.php";
-        require_once "verUsuarios.php";
+        require_once "usuarios1.php";
         $usyarioioSes = $_SESSION["usuario"]?? null;
         //echo "Deu certo?";
 
@@ -43,7 +42,7 @@
            
 
         }else{
-
+            require_once "verUsuarios.php";
             if(verUsuarios($nome, $usuario, $senha)){
                 $_SESSION["usuario"] = $usuario;
                 echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
@@ -55,10 +54,10 @@
                 echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
                 echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
             
-                echo "<a href='Loguin/App.php'>Jogo da Velha</a>";
-                echo'<form action= "http://localhost/trabalhoSistemaPHP/app.html" method="get" target="_blank">
+                echo "<a href='Loguin/app.php'>Jogo da Velha</a>";
+                echo'<form action= "http://localhost/trabalhoSistemaPHP/app.php" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
-            </form>';
+                </form>';
             }else{
                 echo '<form action="" method="post">
 

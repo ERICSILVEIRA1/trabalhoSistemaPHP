@@ -25,7 +25,7 @@
       <label for="">Senha:</label>
       <input type="text" name="senha" id="">
   
-      <input type="submit" value="Login">
+      <input type="submit" value="Criar Usuário">
   
   </form>';
 
@@ -42,7 +42,7 @@
       <label for="">Senha:</label>
       <input type="text" name="senha" id="">
   
-      <input type="submit" value="Login">
+      <input type="submit" value="Atualizar Usuário">
   
   </form>';
 
@@ -59,7 +59,7 @@
       <label for="">Senha:</label>
       <input type="text" name="senha" id="">
   
-      <input type="submit" value="Login">
+      <input type="submit" value="Ver Usuário">
   
   </form>';
 
@@ -76,7 +76,7 @@
       <label for="">Senha:</label>
       <input type="text" name="senha" id="">
   
-      <input type="submit" value="Login">
+      <input type="submit" value="Deletar Usuário">
   
   </form>';
     }

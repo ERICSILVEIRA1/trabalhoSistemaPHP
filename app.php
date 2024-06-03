@@ -43,15 +43,18 @@
 		}
 		.player-x {
 			color: red; /* Define a cor vermelha para o texto */
-}       
+        }
+        .body {
+            color: rgb(17, 0, 255); /* Define a cor vermelha para o fundo */
+        }       
         
     </style>
 </head>
 <body>
 <style>
-.body {
-    color: rgb(17, 0, 255); /* Define a cor vermelha para o fundo */
-}       
+        .body {
+            color: rgb(17, 0, 255); /* Define a cor vermelha para o fundo */
+        }       
 
 </style>
 
@@ -159,40 +162,80 @@
     <br><br>
     <p><b>LOGUIN SOMENTE PARA MANUTENÇÃO</b></p>
      
-    <c><form action="" method="post">
+    <?php 
+    
+        require_once "admin.php";
+        $usyarioioSes = $_SESSION["usuario"]?? null;
+        //echo "Deu certo?";
 
-        <label for="">Nome:</label>
-        <input type="text" name="nome" id="">
-    
-        <label for="">Usuario:</label>
-        <input type="text" name="usuariuo" id="">
-    
-        <label for="">Senha:</label>
-        <input type="text" name="senha" id="">
-    
-        <input type="submit" value="Login"></c>
-    
-    <?php
-        if(isset($_POST['nome']) && isset($_POST['usuario']) && isset($_['senha'])){
-            echo "<a href='Loguin/index1.php'>Index</a>";
+        // echo print_r($_POST);
+        $nome = $_POST["nome"] ?? null;
+        $usuario = $_POST["usuario"] ?? null;
+        $senha = $_POST["senha"] ?? null;
 
-        $_SESSION["usuario"] = $usuario;
-            echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
-            echo "";
-            echo "<h1>Login realizado com sucesso!</h1>";
-            echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
-            echo "<p>Seu login é: <strong>" . $nome . "</strong></p>";
-            echo "<p>Seu login é: <strong>" . $usuario . "</strong></p>";
-            echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
-            echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
-                echo'<form action= "http://localhost/trabalhoSistemaPHP/index.html" method="get" target="_blank">
+       // echo "$nome -- $usuario -- $senha";
+           
+                    
+
+        if(is_null($usuario) && is_null($senha)){
+            echo "Fazer Login";
+           
+            echo '<form action="" method="post">
+
+            <label for="">Nome:</label>
+            <input type="text" name="nome" id="">
+        
+            <label for="">Usuario:</label>
+            <input type="text" name="usuariuo" id="">
+        
+            <label for="">Senha:</label>
+            <input type="text" name="senha" id="">  
+        
+            <input type="submit" value="Login">
+        
+        </form>';
+           
+
+        }else{
+            require_once "verUsuarios.php";
+            if(verUsuarios($nome, $usuario, $senha)){
+                $_SESSION["usuario"] = $usuario;
+                echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
+                echo "";
+                echo "<h1>Login realizado com sucesso!</h1>";
+                echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
+                echo "<p>Seu login é: <strong>" . $nome . "</strong></p>";
+                echo "<p>Seu login é: <strong>" . $usuario . "</strong></p>";
+                echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
+                echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
+            
+                echo "<a href='Loguin/index.php'>Index</a>";
+                echo'<form action= "http://localhost/trabalhoSistemaPHP/index1.php" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
-                    </form>';
-                } else {
-                    echo "<script>document.getElementById('login-form').style.display = 'block';</script>";
-                    echo "<h1>Falha no login!</h1>";
-                }
+                </form>';
+            }else{
+                echo '<form action="" method="post">
+
+                <label for="">Nome:</label>
+                <input type="text" name="nome" id="">
+            
+                <label for="">Usuario:</label>
+                <input type="text" name="usuariuo" id="">
+            
+                <label for="">Senha:</label>
+                <input type="text" name="senha" id="">
+            
+                <input type="submit" value="Login">
+            
+            </form>
+
+</form>';
+                echo "Tentar Novamente";
+            }
+
+        }
+        
     ?>
-    </form>
-</footer>
+</body>
 </html>
+\end{code}
