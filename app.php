@@ -165,7 +165,7 @@
     <?php 
     
         require_once "admin.php";
-        $usyarioioSes = $_SESSION["usuario"]?? null;
+        $usuarioSes = $_SESSION["usuario"]?? null;
         //echo "Deu certo?";
 
         // echo print_r($_POST);
@@ -180,7 +180,7 @@
         if(is_null($usuario) && is_null($senha)){
             echo "Fazer Login";
            
-            echo '<form action="" method="post">
+            echo '<form action="index1.php" method="post">
 
             <label for="">Nome:</label>
             <input type="text" name="nome" id="">
@@ -214,7 +214,7 @@
                 <input type="submit" value="Abrir Google em nova guia">
                 </form>';
             }else{
-                echo '<form action="" method="post">
+                echo '<form action="index1.php" method="post">
 
                 <label for="">Nome:</label>
                 <input type="text" name="nome" id="">

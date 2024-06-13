@@ -12,7 +12,7 @@ if(is_null($usuario) && is_null($senha) && is_null ($nome)){
     echo "Cria la";
     require_once "formulario.php";
 }else{
-    criarUsuario($usuario, $nome, $senha);
+    verUsuarios($usuario, $nome, $senha);
 }
 
 ?>

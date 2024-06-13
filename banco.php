@@ -1,95 +1,59 @@
-<pre>
-<?php 
+<?php
+$banco = new mysqli("localhost:3307", "root", "", "db_trabalhosistemaphp");
 
-    $banco = new mysqli("localhost:3307", "root", "", "db_trabalhoSistemaPHP");
- 
-
-
-
-    function createOnDB (string $into, string $values, bool $debug = false): void
-    {
-        global $banco;
-        $q = "INSERT INTO $into VALUES $values";
-
-        $resp = $banco->query($q);
-
-        if ($debug) {
-            echo "<br>Query: $q";
-            echo "<br>Resp: $resp";
-
-        }   
-    }
-function updateOnDB(string $into, string $values, bool $debug = false): void{
-
-}
-
-function criarUsuario($usuario, $nome, $senha)
-{
+function usuarioCadastrado($usuario) {
     global $banco;
 
-    $q = "INSERT INTO $usuario VALUES (NULL, '$usuario', '$nome', '$senha')";
+    $query = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+    
+    $result = $banco->query($query);
 
-    $resp = $banco->query($q);
-    echo "<br>Query: $q";
-    echo "<br>Resp: $resp";
-}
-
-function atualizarUsuario($usuario, $nome, $senha, $debug)
-{
-    global $banco;
-
-    $set = "";
-    if ($nome != "" && $senha != "") {
-        }else if($nome != ""){
-        }else if($senha != ""){
-
-    }
-
-    $q = "UPDATE usuarios SET senha='$senha' WHERE usuario='$usuario', $debug=false";
-
-    $resp = $banco->query($q);
-    if($debug){
-    echo "<br>Query: $q";
-    echo "<br>Resp: $resp";
+    if ($result && $result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
     }
 }
 
-function verUsuario($usuario, $nome, $senha, $debug)
-{
+function verificaSenha($usuario, $senha) {
     global $banco;
 
-    $set = "";
-    if ($nome != "" && $senha != "") {
-        }else if($nome != ""){
-        }else if($senha != ""){
+    $query = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
+    
+    $result = $banco->query($query);
 
-    }
-
-    $q = "UPDATE usuarios SET senha='$senha' WHERE usuario='$usuario', $debug=false";
-
-    $resp = $banco->query($q);
-    if($debug){
-    echo "<br>Query: $q";
-    echo "<br>Resp: $resp";
+    if ($result && $result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
     }
 }
 
-function deletarUsuario($usuario, $nome, $senha)
-{
+function atualizarUsuario($usuario, $nome, $senha) {
     global $banco;
 
-    $set = "";
-    if ($nome != "" && $senha != "") {
-        }else if($nome != ""){
-        }else if($senha != ""){
+    if (usuarioCadastrado($usuario)) {
+        if (!empty($nome)) {
+            $query = "UPDATE usuarios SET nome = '$nome' WHERE usuario = '$usuario'";
+            $result = $banco->query($query);
 
+            if (!$result) {
+                return "Erro ao atualizar o nome do usuário.";
+            }
+        }
+
+        if (!empty($senha)) {
+            $query = "UPDATE usuarios SET senha = '$senha' WHERE usuario = '$usuario'";
+            $result = $banco->query($query);
+
+            if (!$result) {
+                return "Erro ao atualizar a senha do usuário.";
+            }
+        }
+
+        return "Usuário atualizado com sucesso.";
+    } else {
+        return "Usuário não cadastrado.";
     }
-
-    $q = "UPDATE usuarios SET senha='$senha' WHERE usuario='$usuario'";
-
-    $resp = $banco->query($q);
-    echo "<br>Query: $q";
-    echo "<br>Resp: $resp";
 }
 ?>
-</pre>
