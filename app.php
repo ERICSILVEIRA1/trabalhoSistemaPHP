@@ -197,7 +197,7 @@
            
 
         }else{
-            require_once "verUsuarios.php";
+            require_once "admin.php";
             if(verUsuarios($nome, $usuario, $senha)){
                 $_SESSION["usuario"] = $usuario;
                 echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
@@ -209,7 +209,7 @@
                 echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
                 echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
             
-                echo "<a href='Loguin/index.php'>Index</a>";
+                echo "<a href='Loguin/index1.php'>Index</a>";
                 echo'<form action= "http://localhost/trabalhoSistemaPHP/index1.php" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
                 </form>';

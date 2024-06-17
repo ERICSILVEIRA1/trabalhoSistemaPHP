@@ -1,6 +1,8 @@
 <?php 
 
+require_once "formulario.php";
 require_once "banco.php";
+
 
 echo "--------NAO LOGADO--------";
 
