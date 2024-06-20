@@ -1,84 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index</title>
+</head>
+<body>
+
 <form method="post">
-  <nav>
     <ul>
-      <li><input type="radio" name="opcao" value="1"> 1. Criar Usuário</li>
-      <li><input type="radio" name="opcao" value="2"> 2. Atualizar Usuário</li>
-      <li><input type="radio" name="opcao" value="3"> 3. Ver Usuário</li>
-      <li><input type="radio" name="opcao" value="4"> 4. Deletar Usuário</li>
+        <li><input type="radio" name="opcao" value="1"> 1. Criar Usuário</li>
+        <li><input type="radio" name="opcao" value="2"> 2. Atualizar Usuário</li>
+        <li><input type="radio" name="opcao" value="3"> 3. Ver Usuário</li>
+        <li><input type="radio" name="opcao" value="4"> 4. Deletar Usuário</li>
     </ul>
     <input type="submit" value="Escolher">
-  </form>
+</form>
 
 <?php
-  if (isset($_POST['opcao'])) {
-    $opcao = $_POST['opcao'];
-    if ($opcao == 1) {
-      echo "Você escolheu criar um usuário!";
-      echo '<form action="" method="post">
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $opcao = $_POST['opcao'] ?? '';
 
-      <label for="">Nome:</label>
-      <input type="text" name="nome" id="">
-  
-      <label for="">Usuario:</label>
-      <input type="text" name="usuariuo" id="">
-  
-      <label for="">Senha:</label>
-      <input type="text" name="senha" id="">
-  
-      <input type="submit" value="Criar Usuário">
-  
-  </form>';
-
-    } elseif ($opcao == 2) {
-      echo "Você escolheu atualizar um usuário!";
-      echo '<form action="" method="post">
-
-      <label for="">Nome:</label>
-      <input type="text" name="nome" id="">
-  
-      <label for="">Usuario:</label>
-      <input type="text" name="usuariuo" id="">
-  
-      <label for="">Senha:</label>
-      <input type="text" name="senha" id="">
-  
-      <input type="submit" value="Atualizar Usuário">
-  
-  </form>';
-
-    } elseif ($opcao == 3) {
-      echo "Você escolheu ver um usuário!";
-      echo '<form action="" method="post">
-
-      <label for="">Nome:</label>
-      <input type="text" name="nome" id="">
-  
-      <label for="">Usuario:</label>
-      <input type="text" name="usuariuo" id="">
-  
-      <label for="">Senha:</label>
-      <input type="text" name="senha" id="">
-  
-      <input type="submit" value="Ver Usuário">
-  
-  </form>';
-
-    } elseif ($opcao == 4) {
-      echo "Você escolheu deletar um usuário!";
-      echo '<form action="" method="post">
-
-      <label for="">Nome:</label>
-      <input type="text" name="nome" id="">
-  
-      <label for="">Usuario:</label>
-      <input type="text" name="usuariuo" id="">
-  
-      <label for="">Senha:</label>
-      <input type="text" name="senha" id="">
-  
-      <input type="submit" value="Deletar Usuário">
-  
-  </form>';
+    switch ($opcao) {
+        case '1':
+            echo '<h2>Criar Usuário</h2>';
+            echo '<form action="criarUsuario.php" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" required><br>
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" id="usuario" required><br>
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" required><br>
+                <input type="submit" value="Criar Usuário">
+            </form>';
+            break;
+        case '2':
+            echo '<h2>Atualizar Usuário</h2>';
+            echo '<form action="atualizarUsuario.php" method="post">
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" id="usuario" required><br>
+                <label for="novaSenha">Nova Senha:</label>
+                <input type="password" name="novaSenha" id="novaSenha" required><br>
+                <input type="submit" value="Atualizar Usuário">
+            </form>';
+            break;
+        case '3':
+            echo '<h2>Ver Usuário</h2>';
+            echo '<form action="verUsuario.php" method="post">
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" id="usuario" required><br>
+                <input type="submit" value="Ver Usuário">
+            </form>';
+            break;
+        case '4':
+            echo '<h2>Deletar Usuário</h2>';
+            echo '<form action="deletarUsuario.php" method="post">
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" id="usuario" required><br>
+                <input type="submit" value="Deletar Usuário">
+            </form>';
+            break;
+        default:
+            echo '<p>Opção inválida.</p>';
+            break;
     }
-  }
+}
 ?>
+
+</body>
+</html>

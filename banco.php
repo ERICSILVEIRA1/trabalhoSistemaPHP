@@ -1,54 +1,78 @@
 <?php
 $banco = new mysqli("localhost:3307", "root", "", "db_trabalhosistemaphp");
 
+// Função para verificar se um usuário está cadastrado no banco de dados
 function usuarioCadastrado($usuario) {
     global $banco;
 
-    $query = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
-    
-    $result = $banco->query($query);
+    $stmt = $banco->prepare("SELECT * FROM usuarios WHERE usuario = ?");
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $stmt->store_result();
 
-    if ($result && $result->num_rows > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return $stmt->num_rows > 0;
 }
 
+// Função para buscar todos os usuários do banco de dados
+function buscarUsuariosDoBanco() {
+    global $banco;
+
+    $query = "SELECT * FROM usuarios";
+    $result = $banco->query($query);
+
+    if (!$result) {
+        die("Erro ao buscar usuários: " . $banco->error);
+    }
+
+    $usuarios = array();
+    while ($row = $result->fetch_assoc()) {
+        $usuarios[] = $row;
+    }
+
+    return $usuarios;
+}
+
+// Função para verificar se a senha está correta para um determinado usuário
 function verificaSenha($usuario, $senha) {
     global $banco;
 
-    $query = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
-    
-    $result = $banco->query($query);
+    $stmt = $banco->prepare("SELECT * FROM usuarios WHERE usuario = ? AND senha = ?");
+    $stmt->bind_param("ss", $usuario, $senha);
+    $stmt->execute();
+    $stmt->store_result();
 
-    if ($result && $result->num_rows > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return $stmt->num_rows > 0;
 }
 
+// Função para atualizar os dados de um usuário no banco de dados
 function atualizarUsuario($usuario, $nome, $senha) {
     global $banco;
 
     if (usuarioCadastrado($usuario)) {
-        if (!empty($nome)) {
-            $query = "UPDATE usuarios SET nome = '$nome' WHERE usuario = '$usuario'";
-            $result = $banco->query($query);
+        $updates = array();
+        $types = "";
+        $params = array(&$types);
 
-            if (!$result) {
-                return "Erro ao atualizar o nome do usuário.";
-            }
+        if (!empty($nome)) {
+            $updates[] = "nome = ?";
+            $types .= "s";
+            $params[] = &$nome;
         }
 
         if (!empty($senha)) {
-            $query = "UPDATE usuarios SET senha = '$senha' WHERE usuario = '$usuario'";
-            $result = $banco->query($query);
+            $updates[] = "senha = ?";
+            $types .= "s";
+            $params[] = &$senha;
+        }
 
-            if (!$result) {
-                return "Erro ao atualizar a senha do usuário.";
-            }
+        $updateFields = implode(", ", $updates);
+        $stmt = $banco->prepare("UPDATE usuarios SET $updateFields WHERE usuario = ?");
+        $params[] = &$usuario;
+        $stmt->bind_param($types . "s", ...$params);
+        $result = $stmt->execute();
+
+        if (!$result) {
+            return "Erro ao atualizar os dados do usuário.";
         }
 
         return "Usuário atualizado com sucesso.";

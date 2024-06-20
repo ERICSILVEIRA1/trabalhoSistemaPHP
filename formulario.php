@@ -1,75 +1,55 @@
 <?php 
-    
-        require_once "admin.php";
-        $usuarioSes = $_SESSION["usuario"]?? null;
-        //echo "Deu certo?";
+session_start();
+require_once "admin.php";
 
-        // echo print_r($_POST);
-        $nome = $_POST["nome"] ?? null;
-        $usuario = $_POST["usuario"] ?? null;
-        $senha = $_POST["senha"] ?? null;
+$usuarioSes = $_SESSION["usuario"] ?? null;
 
-       // echo "$nome -- $usuario -- $senha";
-           
-                    
+$nome = $_POST["nome"] ?? null;
+$usuario = $_POST["usuario"] ?? null;
+$senha = $_POST["senha"] ?? null;
 
-        if(is_null($usuario) && is_null($senha)){
-            echo "Fazer Login";
-           
-            echo '<form action="index1.php" method="post">
-
-            <label for="">Nome:</label>
-            <input type="text" name="nome" id="">
+if (is_null($nome) && is_null($usuario) && is_null($senha)) {
+    // Formulário de login
+    echo '<form action="formulario.php" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome">
         
-            <label for="">Usuario:</label>
-            <input type="text" name="usuariuo" id="">
+            <label for="usuario">Usuário:</label>
+            <input type="text" name="usuario" id="usuario">
         
-            <label for="">Senha:</label>
-            <input type="text" name="senha" id="">  
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" id="senha">  
         
             <input type="submit" value="Login">
-        
         </form>';
-           
-
-        }else{
-            require_once "admin.php";
-            if(verUsuarios($nome, $usuario, $senha)){
-                $_SESSION["usuario"] = $usuario;
-                echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
-                echo "";
-                echo "<h1>Login realizado com sucesso!</h1>";
-                echo "<script>document.getElementById('login-form').style.display = 'none';</script>";
-                echo "<p>Seu login é: <strong>" . $nome . "</strong></p>";
-                echo "<p>Seu login é: <strong>" . $usuario . "</strong></p>";
-                echo "<p>Sua senha é: <strong>" . $senha . "</strong></p>";
-                echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
-            
-                echo "<a href='Loguin/index1.php'>Index</a>";
-                echo'<form action= "http://localhost/trabalhoSistemaPHP/index1.php" method="get" target="_blank">
+} else {
+    if (verificaSenha($usuario, $senha)) {
+        // Login bem-sucedido
+        $_SESSION["usuario"] = $usuario;
+        echo "<h1>Login realizado com sucesso!</h1>";
+        echo "<p>Seu login é: <strong>$nome</strong></p>";
+        echo "<p>Seu usuário é: <strong>$usuario</strong></p>";
+        echo "<p>Sua senha é: <strong>$senha</strong></p>";
+        echo "<p>Para segurança, recomendamos que você altere sua senha.</p>";
+        echo "<a href='Loguin/index1.php'>Index</a>";
+        echo '<form action="http://localhost/trabalhoSistemaPHP/index1.php" method="get" target="_blank">
                 <input type="submit" value="Abrir Google em nova guia">
-                </form>';
-            }else{
-                echo '<form action="index1.php" method="post">
-
-                <label for="">Nome:</label>
-                <input type="text" name="nome" id="">
+            </form>';
+    } else {
+        // Credenciais inválidas, mostrar formulário de login novamente
+        echo '<form action="formulario.php" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome">
             
-                <label for="">Usuario:</label>
-                <input type="text" name="usuariuo" id="">
+                <label for="usuario">Usuário:</label>
+                <input type="text" name="usuario" id="usuario">
             
-                <label for="">Senha:</label>
-                <input type="text" name="senha" id="">
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha">
             
                 <input type="submit" value="Login">
-            
-            </form>
-
             </form>';
-                echo "Tentar Novamente";
-            }
-
-        }
-        
-    ?>
-
+        echo "Tentar Novamente";
+    }
+}
+?>
