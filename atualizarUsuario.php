@@ -1,19 +1,14 @@
 <?php
-
 require_once "banco.php";
 
-echo "--------NAO LOGADO--------";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $usuario = $_POST['usuario'] ?? '';
+    $novaSenha = $_POST['novaSenha'] ?? '';
 
-$usuario = $_POST["usuario"]?? null;
-$nome = $_POST["nome"]?? null;
-$senha = $_POST["senha"]?? null;
-
-
-if(is_null($usuario) && is_null($senha) && is_null ($nome)){
-    echo "Atualiza la";
-    require_once "formulario.php";
-}else{
-    atualizarUsuario($usuario, $nome, $senha, $debug);
+    if (!empty($usuario) && !empty($novaSenha)) {
+        echo atualizarUsuario($usuario, null, $novaSenha);
+    } else {
+        echo "Por favor, forneça todos os dados necessários.";
+    }
 }
-
 ?>
