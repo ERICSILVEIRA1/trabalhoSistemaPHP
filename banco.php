@@ -13,6 +13,27 @@ function usuarioCadastrado($usuario) {
     return $stmt->num_rows > 0;
 }
 
+// Função para deletar um usuário do banco de dados
+function deletarUsuario($usuario) {
+    global $banco; // Acessa a variável de conexão global
+
+    // Verifica se o usuário existe
+    if (usuarioCadastrado($usuario)) {
+        $stmt = $banco->prepare("DELETE FROM usuarios WHERE usuario = ?");
+        $stmt->bind_param("s", $usuario);
+        
+        if ($stmt->execute()) {
+            echo "Usuário deletado com sucesso.";
+        } else {
+            echo "Erro ao deletar usuário: " . $stmt->error;
+        }
+        
+        $stmt->close();
+    } else {
+        echo "Usuário não encontrado.";
+    }
+}
+
 // Função para buscar todos os usuários do banco de dados
 function buscarUsuariosDoBanco() {
     global $banco;
@@ -44,6 +65,8 @@ function verificaSenha($usuario, $senha) {
     return $stmt->num_rows > 0;
 }
 
+// Outras funções omitidas para brevidade...
+
 // Função para atualizar os dados de um usuário no banco de dados
 function atualizarUsuario($usuario, $nome, $senha) {
     global $banco;
@@ -51,28 +74,33 @@ function atualizarUsuario($usuario, $nome, $senha) {
     if (usuarioCadastrado($usuario)) {
         $updates = array();
         $types = "";
-        $params = array(&$types);
+        $params = array();
 
         if (!empty($nome)) {
             $updates[] = "nome = ?";
             $types .= "s";
-            $params[] = &$nome;
+            $params[] = $nome;
         }
 
         if (!empty($senha)) {
             $updates[] = "senha = ?";
             $types .= "s";
-            $params[] = &$senha;
+            $params[] = $senha;
+        }
+
+        if (empty($updates)) {
+            return "Nenhuma atualização fornecida.";
         }
 
         $updateFields = implode(", ", $updates);
         $stmt = $banco->prepare("UPDATE usuarios SET $updateFields WHERE usuario = ?");
-        $params[] = &$usuario;
-        $stmt->bind_param($types . "s", ...$params);
+        $types .= "s";
+        $params[] = $usuario;
+        $stmt->bind_param($types, ...$params);
         $result = $stmt->execute();
 
         if (!$result) {
-            return "Erro ao atualizar os dados do usuário.";
+            return "Erro ao atualizar os dados do usuário: " . $stmt->error;
         }
 
         return "Usuário atualizado com sucesso.";

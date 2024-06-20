@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>';
             break;
         case '3':
-            echo '<h2>Ver Usuário</h2>';
-            echo '<form action="verUsuario.php" method="post">
+            echo '<h2>Ver Usuários</h2>';
+            echo '<form action="verUsuarios.php" method="post">
                 <label for="usuario">Usuário:</label>
                 <input type="text" name="usuario" id="usuario" required><br>
                 <input type="submit" value="Ver Usuário">

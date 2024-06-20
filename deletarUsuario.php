@@ -1,15 +1,13 @@
 <?php
-
 require_once "banco.php";
 
-$usuario = $_POST["usuario"] ?? null;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $usuario = $_POST['usuario'] ?? '';
 
-if ($usuario) {
-    $mensagem = deletarUsuario($usuario);
-    echo $mensagem;
-} else {
-    echo "Usuário não especificado.";
+    if (!empty($usuario)) {
+        deletarUsuario($usuario);
+    } else {
+        echo "Por favor, forneça o nome do usuário.";
+    }
 }
-
-
 ?>
