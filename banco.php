@@ -1,3 +1,13 @@
+<!--- Usuarios padrão 
+Usuario: jaozin 
+Senha: senha1
+
+Usuario: carlin
+senha: 321
+
+Usuario: maicon
+senha: 123
+--->
 <?php
 $banco = new mysqli("localhost:3307", "root", "", "db_trabalhosistemaphp");
 
